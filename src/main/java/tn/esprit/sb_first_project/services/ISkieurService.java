@@ -13,4 +13,6 @@ public interface ISkieurService {
     public void deleteSkieurById(Long id);
 
     public Skieur updateSkieur(Long id);
+
+    public Skieur getSkieurByNomSAndPrenomS(String nom,String prenom);
 }

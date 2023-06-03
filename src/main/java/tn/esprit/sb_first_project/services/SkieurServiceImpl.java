@@ -33,4 +33,9 @@ public class SkieurServiceImpl implements ISkieurService{
         Skieur skieur = iskieurRepo.findById(id).get();
         return iskieurRepo.save(skieur);
     }
+
+    @Override
+    public Skieur getSkieurByNomSAndPrenomS(String nom, String prenom) {
+        return iskieurRepo.getSkieurByNomSAndPrenomS(nom,prenom);
+    }
 }

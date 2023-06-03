@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface ISkieurRepo extends JpaRepository<Skieur,Long> {
-    public Skieur findbyNomSAndPrenomS(String nom,String prenom);
-    public List<Skieur> findbyDateNaissanceGreaterThan(Date dateNaissance);
+    public Skieur findByNomSAndPrenomS(String nom,String prenom);
+    public List<Skieur> findByDateNaissanceGreaterThan(Date dateNaissance);
 
-    public Skieur findbyNomSAndPrenomSAndDateNaissance(String nom,String prenom,Date dateNaissance);
+    public Skieur findByNomSAndPrenomSAndDateNaissance(String nom,String prenom,Date dateNaissance);
     @Query("select s from Skieur s where s.nomS=:nom and s.prenomS=:prenom")
     public Skieur getSkieurByNomSAndPrenomS(@Param("nom") String nom, @Param("prenom") String prenom);
 }
