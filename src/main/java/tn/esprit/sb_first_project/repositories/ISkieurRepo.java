@@ -1,8 +1,20 @@
 package tn.esprit.sb_first_project.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tn.esprit.sb_first_project.entities.Skieur;
+
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface ISkieurRepo extends JpaRepository<Skieur,Long> {
+    public Skieur findbyNomSAndPrenomS(String nom,String prenom);
+    public List<Skieur> findbyDateNaissanceGreaterThan(Date dateNaissance);
+
+    public Skieur findbyNomSAndPrenomSAndDateNaissance(String nom,String prenom,Date dateNaissance);
+    @Query("select s from Skieur s where s.nomS=:nom and s.prenomS=:prenom")
+    public Skieur getSkieurByNomSAndPrenomS(@Param("nom") String nom, @Param("prenom") String prenom);
 }
