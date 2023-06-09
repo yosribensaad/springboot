@@ -12,13 +12,9 @@ import java.util.List;
 @Repository
 public interface IInscriptionRepo extends JpaRepository<Inscription,Long> {
 
-    //afficher les numéros des semaines où un moniteur a donnée des cours selon un support donné.
-    //@Query("select i.numSemaine from Inscription i join Cours c, Moniteur m where c.support=: sup and c.m.NumMoniteur=: idM")
-    //List<Integer> getNumSemaineBySupportAndMoniteur(@Param("sup")Support support,@Param("idM") Long idM);
-    @Query("SELECT DISTINCT i.numSemaine FROM Inscription i " +
-            "JOIN i.cours c " +
-            "JOIN c.moniteur m " +
-            "WHERE m.numMoniteur = :moniteurId " +
-            "AND c.support = :support")
-    List<Integer> findWeekNumbersByMoniteurAndSupport(@Param("moniteurId") Long moniteurId, @Param("support") Support support);
+   @Query("SELECT i.numSemaine FROM Inscription i, Moniteur m "
+            + "WHERE m.numMoniteur = :numMonitor "
+            + "AND i.cours.support = :support "
+            + "AND i.cours IN (SELECT c FROM Moniteur mon JOIN mon.cours c WHERE mon.numMoniteur = :numMonitor)")
+    List<Integer> numSemaineOfMonitorBySupport(@Param("support") Support support, @Param("numMonitor") Long numMonitor);
 }
