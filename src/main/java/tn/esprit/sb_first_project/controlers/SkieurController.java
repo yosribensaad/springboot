@@ -3,6 +3,7 @@ package tn.esprit.sb_first_project.controlers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.sb_first_project.entities.Skieur;
+import tn.esprit.sb_first_project.entities.TypeAbonnement;
 import tn.esprit.sb_first_project.services.ISkieurService;
 
 import java.util.List;
@@ -36,5 +37,17 @@ public class SkieurController {
     @GetMapping("/get/{nom}/{prenom}")
     public Skieur getSkieurByNomSAndPrenomS(@PathVariable("nom") String nom, @PathVariable("prenom") String prenom) {
         return skieurService.getSkieurByNomSAndPrenomS(nom, prenom);
+    }
+
+    @PutMapping("/assignSkieurToPiste/{numSkieur}/{numPiste}")
+    public Skieur assignSkieurToPiste(@PathVariable("numSkieur")Long numSkieur,@PathVariable("numPiste")Long numPiste) {
+        Skieur skieur = skieurService.assignSkieurToPiste(numSkieur,numPiste);
+        return skieur;
+    }
+
+    @GetMapping("/retrieveSkieursByTypeAbonnement/{typeAbonnement}")
+    public List<Skieur> retrieveSkieursByTypeAbonnement(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
+        List<Skieur> listSkieurs = skieurService.retrieveSkieursByTypeAbonnement(typeAbonnement);
+        return listSkieurs;
     }
 }

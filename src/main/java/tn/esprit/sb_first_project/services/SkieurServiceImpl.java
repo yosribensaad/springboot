@@ -3,7 +3,10 @@ package tn.esprit.sb_first_project.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.sb_first_project.entities.Piste;
 import tn.esprit.sb_first_project.entities.Skieur;
+import tn.esprit.sb_first_project.entities.TypeAbonnement;
+import tn.esprit.sb_first_project.repositories.IPisteRepo;
 import tn.esprit.sb_first_project.repositories.ISkieurRepo;
 
 import java.util.List;
@@ -14,6 +17,9 @@ public class SkieurServiceImpl implements ISkieurService{
 
     @Autowired
     private ISkieurRepo iskieurRepo;
+
+    @Autowired
+    private IPisteRepo iPisteRepo;
 
     @Override
     public Skieur addSkieur(Skieur skieur){
@@ -44,4 +50,18 @@ public class SkieurServiceImpl implements ISkieurService{
     public Skieur getSkieurByNomSAndPrenomS(String nom, String prenom) {
         return iskieurRepo.getSkieurByNomSAndPrenomS(nom,prenom);
     }
+
+    @Override
+    public List<Skieur> retrieveSkieursByTypeAbonnement(TypeAbonnement typeAbonnement) {
+        return iskieurRepo.findByAbonnementTypeAbon(typeAbonnement);
+    }
+    @Override
+    public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
+        Skieur skieur = iskieurRepo.findByNumSkieur(numSkieur);
+        Piste piste =iPisteRepo.findByNumPiste(numPiste);
+        skieur.getPistes().add(piste);
+        return skieur;
+    }
+
+
 }

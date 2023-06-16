@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 import tn.esprit.sb_first_project.entities.Piste;
 @Repository
 public interface IPisteRepo extends JpaRepository<Piste,Long> {
+    Piste findByNumPiste(Long numPiste);
 }

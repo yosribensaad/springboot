@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface IInscriptionRepo extends JpaRepository<Inscription,Long> {
 
+    Inscription findByNumInscription(Long numInscription);
+
    @Query("SELECT i.numSemaine FROM Inscription i, Moniteur m "
             + "WHERE m.numMoniteur = :numMonitor "
             + "AND i.cours.support = :support "
